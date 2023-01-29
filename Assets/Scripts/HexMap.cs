@@ -12,12 +12,8 @@ public class HexMap : MonoBehaviour
 
     void Start()
     {
-        // Calculate the starting position for the grid
-        float startX = -((gridWidth / 2) * hexWidth);
-        float startY = (gridHeight / 2) * hexHeight;
-
         // Loop through the grid and create hexes
-        for (int x = 0; x < gridWidth; x++)
+        for (int x = 0; x < gridWidth; x+2)
         {
             for (int y = 0; y < gridHeight; y++)
             {
@@ -25,7 +21,7 @@ public class HexMap : MonoBehaviour
                 GameObject hex = Instantiate(hexPrefab);
                 hex.transform.parent = transform;
 
-                hex.transform.position = new Vector3(startX + x * hexWidth * 0.75f, 0, startY - y * hexHeight * 0.5f);
+                hex.transform.position = new Vector3(x, 0, y);
 
                 // Give the hex a name
                 hex.name = "Hex_" + x + "_" + y;
