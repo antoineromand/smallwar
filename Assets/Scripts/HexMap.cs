@@ -4,31 +4,42 @@ using UnityEngine;
 
 public class HexMap : MonoBehaviour
 {
-    public GameObject hexPrefab; // Drag the hex prefab here in the inspector
-    public int gridWidth = 10;
-    public int gridHeight = 10;
-    public float hexWidth = 1;
-    public float hexHeight = 1;
-
+    public GameObject hexPrefab;
+    [SerializeField] public int mapWidth = 25;
+    [SerializeField] public int mapHeight = 25;
+    public float tileXOffset = 2.1f;
+    public float tileZOffset = 1.9f;
+    
     void Start()
     {
-        // Loop through the grid and create hexes
-        for (int x = 0; x < gridWidth; x+2)
+        createMap();
+    }
+
+    void createMap()
+    {
+        for (int x = 0; x < mapWidth; x++)
         {
-            for (int y = 0; y < gridHeight; y++)
+            for (int z = 0; z < mapHeight; z++)
             {
-                // Create a new hex
                 GameObject hex = Instantiate(hexPrefab);
-                hex.transform.parent = transform;
 
-                hex.transform.position = new Vector3(x, 0, y);
-
-                // Give the hex a name
-                hex.name = "Hex_" + x + "_" + y;
+                if (z % 2 == 0)
+                {
+                    hex.transform.position = new Vector3(x * tileXOffset, 0, z * tileZOffset);
+                }
+                else
+                {
+                    hex.transform.position = new Vector3(x * tileXOffset + tileXOffset / 2, 0, z * tileZOffset);
+                }
+                SetTileInfo(hex, x, z);
             }
         }
     }
+
+    void SetTileInfo(GameObject Go, int x, int z)
+    {
+        Go.transform.SetParent(transform);
+        Go.name = x.ToString() + ", " + z.ToString();
+    }
 }
-
-
 
