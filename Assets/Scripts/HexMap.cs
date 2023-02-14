@@ -10,6 +10,7 @@ public class HexMap : MonoBehaviour
     public float tileXOffset = 2.1f;
     public float tileZOffset = 1.9f;
     
+    
     void Start()
     {
         createMap();
@@ -35,7 +36,7 @@ public class HexMap : MonoBehaviour
             }
         }
     }
-
+    
     void SetTileInfo(GameObject Go, int x, int z)
     {
         Go.transform.SetParent(transform);
